@@ -1,0 +1,89 @@
+conky.config = {
+    alignment = 'top_right',
+    background = true,
+    border_width = 1,
+    cpu_avg_samples = 2,
+    default_color = 'aqua',
+    default_outline_color = 'yellow',
+    default_shade_color = 'pink',
+    color1 = '#FFFFFF',
+    double_buffer = true,
+    draw_borders = true,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    extra_newline = false,
+    font = 'Roboto Mono:size=7',
+    gap_x = 30,
+    gap_y = 30,
+    minimum_height = 320,
+    minimum_width = 220,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_x = true,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_transparent = false,
+    own_window_argb_visual = true,
+    own_window_type = 'desktop',
+    own_window_hints ='undecorated,below,sticky,skip_taskbar,skip_pager',
+    show_graph_range = false,
+    show_graph_scale = false,
+    stippled_borders = 0,
+    update_interval = 1.0,
+    uppercase = false,
+    use_spacer = 'none',
+    use_xft = true,
+}
+
+
+conky.text = [[
+${color1}${font ConkySymbols:size=9} ${font} ${voffset -8} Gnu/Linux» $hr${color}
+${color1}${goto 35}OS     : ${color}${execi 86400 cat `ls -atr /etc/os-release | tail -2` | grep "PRETTY_NAME" | cut -d= -f2 |  sed 's/"//g'}
+${color1}${goto 35}Kernel : ${color}$kernel on $machine
+
+${color1}${font ConkySymbols:size=9} ${font} ${voffset -8} System» $hr${color}
+${color1}${goto 35}Core 1 : ${color}${freq_g 1}GHz ${alignr}${cpu cpu0}% ${cpubar cpu0 4,100}
+${color1}${goto 35}Core 2 : ${color}${freq_g 2}GHz ${alignr}${cpu cpu1}% ${cpubar cpu1 4,100}
+${color1}${goto 35}Core 3 : ${color}${freq_g 3}GHz ${alignr}${cpu cpu2}% ${cpubar cpu2 4,100}
+${color1}${goto 35}Core 4 : ${color}${freq_g 4}GHz ${alignr}${cpu cpu3}% ${cpubar cpu3 4,100}
+
+${color1}${font ConkySymbols:size=9} ${font} ${voffset -8} Temperature» $hr${color}
+${color1}${goto 35}CPU : ${color}${exec sensors | grep 'temp1' | awk 'NR==1{print $2}'} ${alignr}${color1}GPU : ${color}${exec sensors | grep 'temp1' | awk 'NR==2{print $2}'}
+
+${color1}${font ConkySymbols:size=9} ${font} ${voffset -8}Memory» $hr${color}
+${color1}${goto 35}RAM : ${color}$mem/$memmax ${alignr}$memperc% ${membar 4,100}
+${color1}${goto 35}SWAP: ${color}$swap/$swapmax $alignr}$swapperc% ${swapbar 4,100}
+
+${color1}${font ConkySymbols:size=9} ${font} ${voffset -8} Processes» $hr${color}
+
+${color1}${goto 35}CPU usage ${alignr}Memory Usage${color}
+${color1}${goto 35}${stippled_hr}${color}
+${goto 35}${top name 1} ${color}${top cpu 1}% ${alignr}${top_mem name 1}${top_mem mem_res 1}
+${goto 35}${top name 2} ${color}${top cpu 2}% ${alignr}${top_mem name 2}${top_mem mem_res 2}
+${goto 35}${top name 3} ${color}${top cpu 3}% ${alignr}${top_mem name 3}${top_mem mem_res 3}
+${goto 35}${top name 4} ${color}${top cpu 4}% ${alignr}${top_mem name 4}${top_mem mem_res 4}
+${goto 35}${top name 5} ${color}${top cpu 5}% ${alignr}${top_mem name 5}${top_mem mem_res 5}
+
+${color1}${goto 35}Processes: ${color}$processes ${color1}Running: ${color}$running_processes
+
+${color1}${font ConkySymbols:size=9} ${font} ${voffset -8} Storage» $hr${color}
+${color1}${goto 35}root : ${color}${fs_used /}/${fs_size /} ${alignr}${fs_used_perc /}% ${fs_bar 4,100 /}
+${goto 35}
+
+${color1}${font ConkySymbols:size=9} ${font} ${voffset -8} Wireless» $hr${color}
+${color1}${goto 35}7265          : ${color}${wireless_essid wlp2s0} ${color1}${alignr}Signal: ${color}${wireless_link_qual_perc wlp2s0}% ${wireless_link_bar 4,100 wlp2s0}
+${color1}${goto 35}bitrate       : ${color}${wireless_bitrate wlp2s0}
+${color1}${goto 35}uptime        : ${color}$uptime_short            ${alignr}${color1}Load  : ${color}${loadavg}
+
+
+${color1}${font ConkySymbols:size=9} ${font} ${voffset -8} Wireless» $hr${color}
+${color1}${goto 35}w722n         : ${color}${wireless_essid wlxd03745d546f3} ${color1}${alignr}Signal: ${color}${wireless_link_qual_perc wlxd03745d546f3}% ${wireless_link_bar 4,100 wlxd03745d546f3}
+${color1}${goto 35}bitrate       : ${color}${wireless_bitrate wlxd03745d546f3}
+${color1}${goto 35}uptime        : ${color}$uptime_short             ${alignr}${color1}Load: ${color}${loadavg}
+
+
+]]
